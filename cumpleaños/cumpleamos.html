@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 ¡Feliz Cumpleaños Sonia! 🎂</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #a97458 0%, #e0c1a3 100%);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 4em;
+      color: #fff8f0;
+      text-shadow: 2px 2px 8px #5a3e2b;
+      animation: bounce 1.5s infinite;
+    }
+
+    p {
+      font-size: 1.7em;
+      color: #fff8f0;
+      margin-top: 20px;
+      text-shadow: 1px 1px 5px #5a3e2b;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <h1>🎉 ¡Feliz Cumpleaños, Sonia! 🎂</h1>
+  <p>Que tengas un día tan hermoso como tú ☕💖</p>
+
+  <script>
+    alert("¡Sorpresa Sonia! 🎁 ¡Feliz Cumpleaños!");
+
+    // Confetti animación
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const pieces = [];
+    const colors = ["#fbe8d3", "#d6a77a", "#a97458", "#fff1e0", "#c49e85"];
+
+    for (let i = 0; i < 150; i++) {
+      pieces.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 8 + 2,
+        speedY: Math.random() * 3 + 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 2 * Math.PI,
+      });
+    }
+
+    function update() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(p => {
+        p.y += p.speedY;
+        p.rotation += 0.02;
+        if (p.y > canvas.height) p.y = -10;
+        ctx.fillStyle = p.color;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      });
+      requestAnimationFrame(update);
+    }
+
+    update();
+  </script>
+</body>
+</html>
